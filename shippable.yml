@@ -13,8 +13,9 @@ before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   - tar -xzf mongo-1.5.2.tgz
-  - sh -c "cd mongo-1.5.2/mongo-1.5.2 && phpize && ./configure && make install"
+  #- sh -c "cd mongo-1.5.2/mongo-1.5.2 && phpize && ./configure && make install"
   #- echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sh -c "cd mongo-1.5.2/mongo-1.5.2 && ./configure && make install"
 
 script:
   - phpunit  --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage tests/ConnectToMongoTest.php
