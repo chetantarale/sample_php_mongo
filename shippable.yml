@@ -1,4 +1,4 @@
-build_image: chetantarale/u14php7:tip
+build_image: chetantarale/u14php7pls:testext1
 
 language: php
 
@@ -9,13 +9,18 @@ services:
   - mongodb
   
 before_script: 
-  - php -v
+  - currentLocation="$PWD"
+  - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
+  - echo "extension=mongo.so" > /etc/php/7.0/cli/php.ini
+  - echo "extension=mongo.so" > /etc/php/7.0/fpm/php.ini
+  - sudo service php7.0-fpm restart
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-  - tar -xzf mongo-1.5.2.tgz
-  #- sh -c "cd mongo-1.5.2/mongo-1.5.2 && phpize && ./configure && make install"
-  #- echo "extension=mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sh -c "cd mongo-1.5.2/mongo-1.5.2 && ./configure && make install"
+  - wget https://phar.phpunit.de/phpunit.phar
+  - chmod +x phpunit.phar
+  - sudo mv phpunit.phar /usr/local/bin/phpunit
+  - phpunit --version
+  - cd "$currentLocation
 
 script:
   - phpunit  --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage tests/ConnectToMongoTest.php
