@@ -10,6 +10,21 @@ services:
   
 before_script: 
   - currentLocation="$PWD"
+  - wget http://xdebug.org/files/xdebug-2.4.0rc2.tgz
+  - tar -xzf xdebug-2.4.0rc2.tgz
+  - cd xdebug-2.4.0RC2/
+  - phpize
+  - ./configure --enable-xdebug
+  - make
+  - sudo cp modules/xdebug.so /usr/lib/.
+  #FOR FPM
+  - sudo echo 'zend_extension="/usr/lib/xdebug.so"' > /etc/php/7.0/fpm/conf.d/20-xdebug.ini 
+  - sudo echo 'xdebug.remote_enable=1' >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini 
+  #FOR CLI
+  - sudo echo 'zend_extension="/usr/lib/xdebug.so"' > /etc/php/7.0/cli/conf.d/20-xdebug.ini 
+  - sudo echo 'xdebug.remote_enable=1' >> /etc/php/7.0/cli/conf.d/20-xdebug.ini
+  #RESTART
+  - sudo service php7.0-fpm restart
   - sudo apt-get install php-pear
   - sudo apt-get install libcurl3-openssl-dev
   - sudo pecl install pecl_http
@@ -17,7 +32,7 @@ before_script:
   - echo $?
   - php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
   - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  - /etc/php/7.0/cli/php.ini
+  - cat /etc/php/7.0/cli/php.ini
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   - wget https://phar.phpunit.de/phpunit.phar
