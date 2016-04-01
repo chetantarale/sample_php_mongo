@@ -10,8 +10,14 @@ services:
   
 before_script: 
   - currentLocation="$PWD"
+  - sudo apt-get install php-pear
+  - sudo apt-get install libcurl3-openssl-dev
+  - sudo pecl install pecl_http
+  - printf '\n' | pecl install mongodb
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
   - find / -name mongo.so
+  - find /-name mongod.so
+  - find /-name mongodb.so
   - echo "extension=mongo.so" > /etc/php/7.0/cli/php.ini
   - echo "extension=mongo.so" > /etc/php/7.0/fpm/php.ini
   - sudo service php7.0-fpm restart
