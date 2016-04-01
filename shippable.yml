@@ -11,7 +11,7 @@ services:
 before_script: 
   - currentLocation="$PWD"
   - apt-get install php-mongodb
-  - find / -name memcache.so
+  - find / -name mongodb.so
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
   - echo $?
   #- php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
