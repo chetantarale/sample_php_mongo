@@ -1,29 +1,15 @@
-build_image: chetantarale/u14php7pls:tip1
-
 language: php
 
 php: 
-  - "7.0"
+  - 5.6
 
 services:
   - mongodb
   
 before_script: 
-  - currentLocation="$PWD"
-  - apt-get install php-mongodb
-  - find / -name mongodb.so
-  - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
-  - echo $?
-  #- php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
-  #- echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  #- cat /etc/php/7.0/cli/php.ini
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-  - wget https://phar.phpunit.de/phpunit.phar
-  - chmod +x phpunit.phar
-  - sudo mv phpunit.phar /usr/local/bin/phpunit
-  - phpunit --version
-  - cd "$currentLocation"
+
 
 script:
   - phpunit  --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage tests/ConnectToMongoTest.php
