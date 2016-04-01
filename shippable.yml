@@ -17,8 +17,8 @@ before_script:
   - find / -name mongo.so
   - find / -name mongod.so
   - find / -name mongodb.so
-  - echo "extension=mongo.so" > /etc/php/7.0/cli/php.ini
-  - echo "extension=mongo.so" > /etc/php/7.0/fpm/php.ini
+  - echo "extension=mongodb.so" > /etc/php/7.0/cli/php.ini
+  - echo "extension=mongodb.so" > /etc/php/7.0/fpm/php.ini
   - sudo service php7.0-fpm restart
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
