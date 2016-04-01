@@ -17,6 +17,8 @@ before_script:
   - echo $?
   - echo "extension=mongodb.so" > /etc/php/7.0/cli/php.ini
   - echo "extension=mongodb.so" > /etc/php/7.0/fpm/php.ini
+  - /etc/php/7.0/cli/php.ini
+  - cat /etc/php/7.0/fpm/php.ini
   - sudo service php7.0-fpm restart
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
