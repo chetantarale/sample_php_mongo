@@ -13,13 +13,8 @@ before_script:
   - sudo apt-get install php-pear
   - sudo apt-get install libcurl3-openssl-dev
   - sudo pecl install pecl_http
-  - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
-  - find / -name mongo.so
-  - find / -name mongod.so
-  - find / -name mongodb.so
-  - echo "extension=mongodb.so" > /etc/php/7.0/cli/php.ini
-  - echo "extension=mongodb.so" > /etc/php/7.0/fpm/php.ini
+  - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - sudo service php7.0-fpm restart
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
