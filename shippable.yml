@@ -14,7 +14,7 @@ before_script:
   - sudo apt-get install libcurl3-openssl-dev
   - sudo pecl install pecl_http
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
-  - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - echo extension=mongodb.so > /etc/php/7.0/mods-available/mongodb.ini
   - sudo service php7.0-fpm restart
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
