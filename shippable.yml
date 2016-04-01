@@ -15,7 +15,6 @@ before_script:
   - sudo pecl install pecl_http
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
   - echo $?
-  - pecl install mongodb
   - php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
   - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - sudo service php7.0-fpm restart
