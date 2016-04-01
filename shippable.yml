@@ -15,8 +15,8 @@ before_script:
   - sudo su -c /usr/bin/mongod -f /etc/mongod.conf --smallfiles > /dev/null 2>&1 &
   - echo $?
   #- php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
-  #- echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  #- cat /etc/php/7.0/cli/php.ini
+  - echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - cat /etc/php/7.0/cli/php.ini
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   - wget https://phar.phpunit.de/phpunit.phar
